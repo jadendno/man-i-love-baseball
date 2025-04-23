@@ -1,11 +1,12 @@
+# I Love Baseball
   
-A list of all major league baseball stadiums resides at [http://en.wikipedia.org/wiki/List\_of\_Major\_League\_Baseball\_stadiums](http://en.wikipedia.org/wiki/List_of_Major_League_Baseball_stadiums).  A list of all the major league baseball teams reside at [http://mlb.com](http://mlb.com).  You are to write a program that inputs this data and stores this data in a suitable data structure.  (heap, tree, etc.) This data will allow baseball fans to plan their dream vacation.   
+A list of all major league baseball stadiums resides at [http://en.wikipedia.org/wiki/List\_of\_Major\_League\_Baseball\_stadiums](http://en.wikipedia.org/wiki/List_of_Major_League_Baseball_stadiums). A list of all the major league baseball teams reside at [http://mlb.com](http://mlb.com). You are to write a program that inputs this data and stores this data in a suitable data structure (heap, tree, et cetera). This data will allow baseball fans to plan their dream vacation.
 
-The initial souvenir list is a follows
+The initial souvenir list is as follows:
 
-1. Baseball cap			$25.99  
-2. Baseball bat			$35.35  
-3. Team pennant			$12.99  
+1. Baseball cap           $25.99  
+2. Baseball bat		        $35.35  
+3. Team pennant		      	$12.99  
 4. Autographed baseball		$19.99
 
 1. Write at least 10 agile stories (including description, tasks, test scenarios, and story points) before any software development.  
@@ -16,7 +17,7 @@ The initial souvenir list is a follows
 6. You should create a list of stadiums that have grass surface sorted by team name.  
 7. You should create a list of stadiums in chronological order by date opened
 
-**Planning a vacation:**
+## Planning a vacation:
 
 1. Design a trip to all the major league stadiums with the shortest path starting at a stadium in California.  Print the number of stadiums visited, the order the stadiums are visited, and the total distance traveled.  
 2. Design a trip to all the American League stadiums with the shortest path starting at a stadium in California.  Print the number of stadiums visited, the order the stadiums are visited, and the total distance traveled.  
@@ -51,7 +52,7 @@ The assignment will be graded using the following scale:
 | Correct calculation of distances | 10 |
 | Total | 50 |
 
-**Due Dates:**  
+## Due Dates:
 April 30, 2025 \- Agile stories within some agile project management software.  Stories should include proper description, any tasks that need to be completed, as well as the definition of done.
 
 May 14, 2025 \- Sprint 1 \- First presentation of your project to the customer will need to be presented.  You will indicate what stories you have completed and what stories have yet to be completed.  
@@ -60,7 +61,7 @@ May 28, 2025 \- Sprint 2 \- Second presentation of your project.  You will indic
 
 June 4, 2025 \- Final demonstration of your project.
 
-**Stadiums**  
+## Stadiums
 The information is in the following format:  
 \- Stadium Name  
 \- Team Name  
@@ -70,8 +71,8 @@ The information is in the following format:
 \- Date Opened  
 \- Seating Capacity
 
-AMERICAN LEAGUE TEAMS:  
-\-----------------------------
+---
+## AMERICAN LEAGUE TEAMS:
 
 Angels Stadium of Anaheim  
 Los Angeles Angels of Anaheim  
@@ -120,7 +121,6 @@ Houston, TX 77002
 (713) 259-8000  
 Opened \- March 30, 2000  
 Capacity \- 42,060  
- 
 
 O.co Coliseum  
 Oakland Athletics  
@@ -194,8 +194,7 @@ South Bronx, NY 10451
 Opened \- April 16, 2009  
 Capacity \- 50,291
 
-NATIONAL LEAGUE TEAMS:  
-\--------------------------------
+## NATIONAL LEAGUE TEAMS:
 
 AT\&T Park  
 San Francisco Giants  
@@ -298,9 +297,8 @@ Pittsburgh Pirates
 115 Federal St  
 Pittsburgh, PA 15212  
 (412) 321-2827  
-March 31, 2001  
-38,362  
-N
+Opened \- March 31, 2001  
+Capacity \- 38,362  
 
 Turner Field   
 Atlanta Braves  
