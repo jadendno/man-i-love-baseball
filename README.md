@@ -9,12 +9,14 @@ Project for CS 008: Data Structures and Algorithms with Juan Leon.
 View Alphabetically Sorted Stadium List
 Description:
 As a fan, I want to view all stadiums in alphabetical order by name so I can easily browse them.
+
 Tasks:
 Load stadium data from the input.
 Sort by stadium name.
 Display a sorted list.
 Test:
 Load sample data and verify the order starts with "Angels Stadium..." and ends with "Yankee Stadium".
+
 
 Sort Stadiums by Team Name
 Description:
@@ -24,6 +26,7 @@ Add sorting logic based on team name.
 Display the results.
 Test:
 Verify "Boston Red Sox" stadium appears before the "Detroit Tigers".
+
 
 Plan Shortest Trip to All Stadiums
 Description:
