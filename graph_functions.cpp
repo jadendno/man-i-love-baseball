@@ -1,8 +1,5 @@
 #include "graph_functions.h"
 
-// Dijkstra's algorithm
-// Precondition: 'matrix' is a square matrix with non-negative weights; 'cities' size matches matrix dimensions; 'start_city' exists in 'cities'.
-// Postcondition: Outputs or stores the shortest path from 'start_city' to all other cities.
 void dijkstra(const vector<vector<int>>& matrix, const vector<string>& cities, const string& start_city) {
     cout << "---Dijkstra's Algorithm (starting from Seattle)---" << endl;
 
@@ -51,9 +48,7 @@ void dijkstra(const vector<vector<int>>& matrix, const vector<string>& cities, c
     }
 }
 
-// Prim's algorithm
-// Precondition: 'matrix' is a square matrix with symmetric and non-negative weights; 'cities' size matches matrix dimensions.
-// Postcondition: Outputs or stores the Minimum Spanning Tree (MST) of the graph.
+
 void prim(const vector<vector<int>>& matrix, const vector<string>& cities) {
     cout << "\n---Prim's MST---" << endl;
 
@@ -88,9 +83,7 @@ void prim(const vector<vector<int>>& matrix, const vector<string>& cities) {
     cout << "Total mileage: " << total_cost << endl;
 }
 
-// Find function used in union-find structure for Kruskal's algorithm
-// Precondition: 'parent' is a valid vector with initialized parent elements.
-// Postcondition: Returns the root representative of the element 'u'.
+
 int find(int u, vector<int>& parent) {
     while (parent[u] != u) {
         parent[u] = parent[parent[u]];

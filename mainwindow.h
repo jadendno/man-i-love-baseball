@@ -38,5 +38,8 @@ private:
     //map setup
     void setupMap();
 
+    //setup up undirected lines
+    void drawConnection(QPointF from, QPointF to, const QString& labeltext);
+
 };
 #endif // MAINWINDOW_H

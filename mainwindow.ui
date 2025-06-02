@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(59, 59, 59)</string>
   </property>
@@ -75,6 +78,9 @@ QFrame#loginframe {
          <height>41</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255)</string>
+       </property>
       </widget>
       <widget class="QLineEdit" name="passinput">
        <property name="geometry">
@@ -84,6 +90,9 @@ QFrame#loginframe {
          <width>331</width>
          <height>41</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255)</string>
        </property>
        <property name="echoMode">
         <enum>QLineEdit::EchoMode::Password</enum>
