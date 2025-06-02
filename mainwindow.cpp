@@ -20,8 +20,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //ui->stackedWidget->setCurrentWidget(ui->loginPage);
-    ui->stackedWidget->setCurrentWidget(ui->users_menu);
+    ui->stackedWidget->setCurrentWidget(ui->loginPage);
+    //ui->stackedWidget->setCurrentWidget(ui->users_menu);
 
     scene = new QGraphicsScene(this);
     ui->usMap->setScene(scene);
@@ -581,9 +581,87 @@ void MainWindow::setupMap()
 
     //coordinates: testing att && safeco
 
-    QPointF attCenter(18+3.5, 193 + 3.5);
-    QPointF safecoCenter(74+3.5, 30+3.5);
+    QPointF attCenterP(18+3.5, 193 + 3.5);
+    QPointF safecoCenterP(74+3.5, 30+3.5);
+    drawConnection(attCenterP, safecoCenterP, "680");
 
-    drawConnection(attCenter, safecoCenter, "680 mi");
+    QPointF oaklandP(27+3.5, 200+3.5);
+    QPointF dodgersP(58+3.5, 269+3.5);
+    drawConnection(oaklandP, dodgersP, "650");
+
+    QPointF angelsP(65+3.5, 275+3.5);
+    QPointF petcoP(73+3.5, 297+3.5);
+    drawConnection(petcoP, angelsP, "110");
+
+    QPointF coorsP(250+3.5, 208+3.5);
+    QPointF chaseP(148+3.5, 303+3.5);
+    QPointF targetP(400+3.5, 121+3.5);
+    QPointF rogersP(575+3.5, 120+3.5);
+    QPointF rangersP(340+3.5, 340+3.5);
+    QPointF minuteMaidP(380+3.5, 380+3.5);
+    QPointF kauffmanP(390+3.5, 230+3.5);
+    QPointF buschP(440+3.5, 231+3.5);
+    QPointF wrigleyP(465+3.5, 170+3.5);
+    QPointF millerP(465+3.5, 150+3.5);
+    QPointF greatAmericanP(518+3.5, 218+3.5);
+    QPointF progressiveP(547+3.5, 175+3.5);
+    QPointF comericaP(525+3.5, 158+3.5);
+    QPointF turnerP(528+3.5, 305+3.5);
+    QPointF marlinsP(604+3.5, 435+3.5);
+    QPointF trapicanaP(575+3.5, 398+3.5);
+    QPointF nationalsP(615+3.5, 200+3.5);
+    QPointF pncP(575+3.5, 185+3.5);
+    QPointF yankeeP(650+3.5, 160+3.5);
+    QPointF citizensP(635+3.5, 178+3.5);
+    QPointF citiP(655+3.5, 165+3.5);
+    QPointF fenwayP(680+3.5, 130+3.5);
+
+
+    drawConnection(angelsP, coorsP, "830");
+    drawConnection(petcoP, chaseP, "300");
+    drawConnection(oaklandP, chaseP, "650");
+    drawConnection(angelsP, targetP, "1500");
+    drawConnection(safecoCenterP, targetP, "1390");
+    drawConnection(safecoCenterP, rogersP, "2070");
+    drawConnection(chaseP, coorsP, "580");
+    drawConnection(chaseP, rangersP, "870");
+    drawConnection(chaseP, minuteMaidP, "1115");
+    drawConnection(rangersP, minuteMaidP, "230");
+    drawConnection(coorsP, rangersP, "650");
+    drawConnection(coorsP, kauffmanP, "560");
+    drawConnection(rangersP, kauffmanP, "460");
+    drawConnection(kauffmanP, buschP, "235");
+    drawConnection(kauffmanP, wrigleyP, "415");
+    drawConnection(buschP, minuteMaidP, "680");
+    drawConnection(buschP, targetP, "465");
+    drawConnection(millerP, targetP, "300");
+    drawConnection(millerP, wrigleyP, "80");
+    drawConnection(wrigleyP, greatAmericanP, "250");
+    drawConnection(millerP, rogersP, "430");
+    drawConnection(comericaP, rogersP,"210");
+    drawConnection(comericaP, wrigleyP,"240");
+    drawConnection(comericaP, progressiveP,"90");
+    drawConnection(greatAmericanP, progressiveP,"225");
+    drawConnection(turnerP, greatAmericanP,"375");
+    drawConnection(turnerP, rangersP,"740");
+    drawConnection(turnerP, marlinsP,"600");
+    drawConnection(greatAmericanP, trapicanaP,"790");
+    drawConnection(minuteMaidP, trapicanaP,"790");
+    drawConnection(minuteMaidP, marlinsP,"965");
+    drawConnection(trapicanaP, marlinsP,"210");
+    drawConnection(nationalsP, turnerP,"560");
+    drawConnection(nationalsP, marlinsP,"930");
+    drawConnection(pncP, progressiveP,"115");
+    drawConnection(pncP, nationalsP,"195");
+    drawConnection(pncP, rogersP,"225");
+    drawConnection(nationalsP, citizensP,"90");
+    drawConnection(citiP, citizensP,"80");
+    drawConnection(pncP, yankeeP,"315");
+    drawConnection(fenwayP, rogersP,"430");
+    drawConnection(fenwayP, marlinsP,"1255");
+
+
+
+
 
 }

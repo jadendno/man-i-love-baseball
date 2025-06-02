@@ -10,12 +10,10 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp \
-    graph_functions.cpp
+    mainwindow.cpp
 
 HEADERS += \
-    mainwindow.h \
-    graph_function.h
+    mainwindow.h
 
 FORMS += \
     mainwindow.ui
