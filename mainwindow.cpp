@@ -2,10 +2,41 @@
 #include "ui_mainwindow.h"
 
 
+
+
+
+
+
+
+// class QGraphicsEllipseItem  : public QObject, public QGraphicsEllipseItem  {
+//     Q_OBJECT
+// public:
+//     QGraphicsEllipseItem (qreal x, qreal y, qreal w, qreal h, QPen p, QBrush b)
+//         : QGraphicsEllipseItem (x, y, w, h) {
+//         setBrush(b);
+//         setPen(p);
+//     }
+
+//     QGraphicsEllipseItem (qreal x, qreal y, qreal w, qreal h, QPen p, QBrush b, QGraphicsScene* s)
+//         : QGraphicsEllipseItem (x, y, w, h) {
+//         setBrush(b);
+//         setPen(p);
+//         s->addItem(this);
+//     }
+
+// signals:
+//     void clicked();
+
+// protected:
+//     void mousePressEvent(QGraphicsSceneMouseEvent *event) override {
+//         emit clicked();
+//     }
+// };
+
 /**********************************************************************
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::MainWindow
 ***********************************************************************
 sets up entire application
 ***********************************************************************
@@ -210,7 +241,7 @@ void MainWindow::setupMap()
 
     //AMERICAN LEAGUES
 
-    QGraphicsEllipseItem* angelStadium = scene->addEllipse(65, 275, 7, 7, QPen(QColorConstants::Svg::orange), QBrush(QColorConstants::Svg::orange));
+    QGraphicsEllipseItem * angelStadium = scene->addEllipse(65, 275, 7, 7, QPen(QColorConstants::Svg::orange), QBrush(QColorConstants::Svg::orange));
 
     // Tooltip with full info
     angelStadium->setToolTip(
@@ -223,7 +254,7 @@ void MainWindow::setupMap()
         "Capacity: 45,483"
         );
 
-    QGraphicsEllipseItem* oaklandColiseum = scene->addEllipse(27, 200, 7, 7, QPen(QColorConstants::Svg::orange), QBrush(QColorConstants::Svg::orange));
+    QGraphicsEllipseItem * oaklandColiseum = scene->addEllipse(27, 200, 7, 7, QPen(QColorConstants::Svg::orange), QBrush(QColorConstants::Svg::orange));
     oaklandColiseum->setToolTip(
         "O.Co Coliseum\n"
         "Oakland Athletics\n"
@@ -234,7 +265,7 @@ void MainWindow::setupMap()
         "Capacity: 37,090 (April - August) & 55,945 (Sept-Jan)\n"
         );
 
-    QGraphicsEllipseItem* safeCoField = scene->addEllipse(74, 30, 7, 7, QPen(QColorConstants::Svg::orange), QBrush(QColorConstants::Svg::orange));
+    QGraphicsEllipseItem * safeCoField = scene->addEllipse(74, 30, 7, 7, QPen(QColorConstants::Svg::orange), QBrush(QColorConstants::Svg::orange));
     safeCoField->setToolTip(
         "SafeCo Field\n"
         "Seattle Mariners\n"
@@ -246,7 +277,7 @@ void MainWindow::setupMap()
         );
 
 
-    QGraphicsEllipseItem* rangersBallpark = scene->addEllipse(340, 340, 7, 7, QPen(QColorConstants::Svg::orange), QBrush(QColorConstants::Svg::orange));
+    QGraphicsEllipseItem * rangersBallpark = scene->addEllipse(340, 340, 7, 7, QPen(QColorConstants::Svg::orange), QBrush(QColorConstants::Svg::orange));
     rangersBallpark->setToolTip(
         "Globe Life Park in Arlington\n"
         "Texas Rangers\n"
@@ -257,7 +288,7 @@ void MainWindow::setupMap()
         "Capacity – 48,114"
         );
 
-    QGraphicsEllipseItem* minuteMaid = scene->addEllipse(380, 380, 7, 7, QPen(QColorConstants::Svg::orange), QBrush(QColorConstants::Svg::orange));
+    QGraphicsEllipseItem * minuteMaid = scene->addEllipse(380, 380, 7, 7, QPen(QColorConstants::Svg::orange), QBrush(QColorConstants::Svg::orange));
     minuteMaid->setToolTip(
         "Minute Maid Park\n"
         "Houston Astros\n"
@@ -272,7 +303,7 @@ void MainWindow::setupMap()
 
     //National league
 
-    QGraphicsEllipseItem* petcoPark = scene->addEllipse(73, 297, 7, 7, QPen(QColorConstants::Svg::green), QBrush(QColorConstants::Svg::green));
+    QGraphicsEllipseItem * petcoPark = scene->addEllipse(73, 297, 7, 7, QPen(QColorConstants::Svg::green), QBrush(QColorConstants::Svg::green));
     petcoPark->setToolTip(
         "Petco Park\n"
         "San Diego Padres\n"
@@ -284,7 +315,7 @@ void MainWindow::setupMap()
 
         );
 
-    QGraphicsEllipseItem* dodger = scene->addEllipse(58, 269, 7, 7, QPen(QColorConstants::Svg::green), QBrush(QColorConstants::Svg::green));
+    QGraphicsEllipseItem * dodger = scene->addEllipse(58, 269, 7, 7, QPen(QColorConstants::Svg::green), QBrush(QColorConstants::Svg::green));
     dodger->setToolTip(
         "Dodger Stadium\n"
         "Los Angeles Dodgers\n"
@@ -295,7 +326,7 @@ void MainWindow::setupMap()
         "Capacity - 56,000"
         );
 
-    QGraphicsEllipseItem* att = scene->addEllipse(18, 193, 7, 7, QPen(QColorConstants::Svg::green), QBrush(QColorConstants::Svg::green));
+    QGraphicsEllipseItem * att = scene->addEllipse(18, 193, 7, 7, QPen(QColorConstants::Svg::green), QBrush(QColorConstants::Svg::green));
     att->setToolTip(
         "AT&T Park\n"
         "San Francisco Giants\n"
@@ -307,7 +338,7 @@ void MainWindow::setupMap()
 
         );
 
-    QGraphicsEllipseItem* chaseFields = scene->addEllipse(148, 303, 7, 7, QPen(QColorConstants::Svg::green), QBrush(QColorConstants::Svg::green));
+    QGraphicsEllipseItem * chaseFields = scene->addEllipse(148, 303, 7, 7, QPen(QColorConstants::Svg::green), QBrush(QColorConstants::Svg::green));
     chaseFields->setToolTip(
         "Chase Field\n"
         "Arizona Diamondbacks\n"
@@ -318,7 +349,7 @@ void MainWindow::setupMap()
         "Capacity - 48,633"
         );
 
-    QGraphicsEllipseItem* coorsField = scene->addEllipse(250, 208, 7, 7, QPen(QColorConstants::Svg::green), QBrush(QColorConstants::Svg::green));
+    QGraphicsEllipseItem * coorsField = scene->addEllipse(250, 208, 7, 7, QPen(QColorConstants::Svg::green), QBrush(QColorConstants::Svg::green));
     coorsField->setToolTip(
         "Coors Field\n"
         "Colorado Rockies\n"
@@ -336,7 +367,7 @@ void MainWindow::setupMap()
 
     //American League
 
-    QGraphicsEllipseItem* kauffman = scene->addEllipse(390, 230, 7, 7, QPen(QColorConstants::DarkYellow), QBrush(QColorConstants::DarkYellow));
+    QGraphicsEllipseItem * kauffman = scene->addEllipse(390, 230, 7, 7, QPen(QColorConstants::DarkYellow), QBrush(QColorConstants::DarkYellow));
     kauffman->setToolTip(
         "Kauffman Stadium\n"
         "Kansas City Royals\n"
@@ -347,7 +378,7 @@ void MainWindow::setupMap()
         "Capacity – 37,903\n"
         );
 
-    QGraphicsEllipseItem* target = scene->addEllipse(400, 121, 7, 7, QPen(QColorConstants::DarkYellow), QBrush(QColorConstants::DarkYellow));
+    QGraphicsEllipseItem * target = scene->addEllipse(400, 121, 7, 7, QPen(QColorConstants::DarkYellow), QBrush(QColorConstants::DarkYellow));
     target->setToolTip(
         "Target Field\n"
         "Minnesota Twins\n"
@@ -358,7 +389,7 @@ void MainWindow::setupMap()
         "Capacity - 39,021"
         );
 
-    QGraphicsEllipseItem* usCellular = scene->addEllipse(470, 175, 7, 7, QPen(QColorConstants::DarkYellow), QBrush(QColorConstants::DarkYellow));
+    QGraphicsEllipseItem * usCellular = scene->addEllipse(470, 175, 7, 7, QPen(QColorConstants::DarkYellow), QBrush(QColorConstants::DarkYellow));
     usCellular->setToolTip(
         "US Cellular Field\n"
         "Chicago White Sox\n"
@@ -370,7 +401,7 @@ void MainWindow::setupMap()
 
         );
 
-    QGraphicsEllipseItem* comerica = scene->addEllipse(525, 158, 7, 7, QPen(QColorConstants::DarkYellow), QBrush(QColorConstants::DarkYellow));
+    QGraphicsEllipseItem * comerica = scene->addEllipse(525, 158, 7, 7, QPen(QColorConstants::DarkYellow), QBrush(QColorConstants::DarkYellow));
     comerica->setToolTip(
         "Comerica Park\n"
         "Detroit Tigers\n"
@@ -382,7 +413,7 @@ void MainWindow::setupMap()
         );
 
 
-    QGraphicsEllipseItem* progressive = scene->addEllipse(547, 175, 7, 7, QPen(QColorConstants::DarkYellow), QBrush(QColorConstants::DarkYellow));
+    QGraphicsEllipseItem * progressive = scene->addEllipse(547, 175, 7, 7, QPen(QColorConstants::DarkYellow), QBrush(QColorConstants::DarkYellow));
     progressive->setToolTip(
         "Progressive Field\n"
         "Cleveland Indians\n"
@@ -396,7 +427,7 @@ void MainWindow::setupMap()
 
     //national leagues
 
-    QGraphicsEllipseItem* busch = scene->addEllipse(440, 231, 7, 7, QPen(QColorConstants::Svg::purple), QBrush(QColorConstants::Svg::purple));
+    QGraphicsEllipseItem * busch = scene->addEllipse(440, 231, 7, 7, QPen(QColorConstants::Svg::purple), QBrush(QColorConstants::Svg::purple));
     busch->setToolTip(
         "Busch Stadium\n"
         "St. Louis Cardinals\n"
@@ -407,7 +438,7 @@ void MainWindow::setupMap()
         "Capacity - 46,861\n"
         );
 
-    QGraphicsEllipseItem* wrigley = scene->addEllipse(465, 170, 7, 7, QPen(QColorConstants::Svg::purple), QBrush(QColorConstants::Svg::purple));
+    QGraphicsEllipseItem * wrigley = scene->addEllipse(465, 170, 7, 7, QPen(QColorConstants::Svg::purple), QBrush(QColorConstants::Svg::purple));
     wrigley->setToolTip(
         "Wrigley Field\n"
         "Chicago Cubs\n"
@@ -419,7 +450,7 @@ void MainWindow::setupMap()
 
         );
 
-    QGraphicsEllipseItem* miller = scene->addEllipse(465, 150, 7, 7, QPen(QColorConstants::Svg::purple), QBrush(QColorConstants::Svg::purple));
+    QGraphicsEllipseItem * miller = scene->addEllipse(465, 150, 7, 7, QPen(QColorConstants::Svg::purple), QBrush(QColorConstants::Svg::purple));
     miller->setToolTip(
         "Miller Park\n"
         "Milwaukee Brewers\n"
@@ -430,7 +461,7 @@ void MainWindow::setupMap()
         "Capacity - 41,900"
         );
 
-    QGraphicsEllipseItem* greatAmerican = scene->addEllipse(518, 218, 7, 7, QPen(QColorConstants::Svg::purple), QBrush(QColorConstants::Svg::purple));
+    QGraphicsEllipseItem * greatAmerican = scene->addEllipse(518, 218, 7, 7, QPen(QColorConstants::Svg::purple), QBrush(QColorConstants::Svg::purple));
     greatAmerican->setToolTip(
         "Great America Ball Park\n"
         "Cincinnati Reds\n"
@@ -441,7 +472,7 @@ void MainWindow::setupMap()
         "Capacity - 42,319"
         );
 
-    QGraphicsEllipseItem* pnc = scene->addEllipse(575, 185, 7, 7, QPen(QColorConstants::Svg::purple), QBrush(QColorConstants::Svg::purple));
+    QGraphicsEllipseItem * pnc = scene->addEllipse(575, 185, 7, 7, QPen(QColorConstants::Svg::purple), QBrush(QColorConstants::Svg::purple));
     pnc->setToolTip(
         "PNC Park\n"
         "Pittsburgh Pirates\n"
@@ -459,7 +490,7 @@ void MainWindow::setupMap()
 
     //American League
 
-    QGraphicsEllipseItem* tropicana = scene->addEllipse(575, 398, 7, 7, QPen(QColorConstants::Svg::red), QBrush(QColorConstants::Svg::red));
+    QGraphicsEllipseItem * tropicana = scene->addEllipse(575, 398, 7, 7, QPen(QColorConstants::Svg::red), QBrush(QColorConstants::Svg::red));
     tropicana->setToolTip(
         "Tropicana Field\n"
         "Tampa Bay Rays\n"
@@ -471,7 +502,7 @@ void MainWindow::setupMap()
 
         );
 
-    QGraphicsEllipseItem* rogers = scene->addEllipse(575, 120, 7, 7, QPen(QColorConstants::Svg::red), QBrush(QColorConstants::Svg::red));
+    QGraphicsEllipseItem * rogers = scene->addEllipse(575, 120, 7, 7, QPen(QColorConstants::Svg::red), QBrush(QColorConstants::Svg::red));
     rogers->setToolTip(
         "Rogers Centre\n"
         "Toronto Blue Jays\n"
@@ -482,7 +513,7 @@ void MainWindow::setupMap()
         "Capacity - 49,282"
         );
 
-    QGraphicsEllipseItem* camden = scene->addEllipse(620, 195, 7, 7, QPen(QColorConstants::Svg::red), QBrush(QColorConstants::Svg::red));
+    QGraphicsEllipseItem * camden = scene->addEllipse(620, 195, 7, 7, QPen(QColorConstants::Svg::red), QBrush(QColorConstants::Svg::red));
     camden->setToolTip(
         "Oriole Park at Camden Yards\n"
         "Baltimore Orioles\n"
@@ -494,7 +525,7 @@ void MainWindow::setupMap()
 
         );
 
-    QGraphicsEllipseItem* yankee = scene->addEllipse(650, 160, 7, 7, QPen(QColorConstants::Svg::red), QBrush(QColorConstants::Svg::red));
+    QGraphicsEllipseItem * yankee = scene->addEllipse(650, 160, 7, 7, QPen(QColorConstants::Svg::red), QBrush(QColorConstants::Svg::red));
     yankee->setToolTip(
         "Yankee Stadium\n"
         "New York Yankees\n"
@@ -506,7 +537,7 @@ void MainWindow::setupMap()
 
         );
 
-    QGraphicsEllipseItem* fenway = scene->addEllipse(680, 130, 7, 7, QPen(QColorConstants::Svg::red), QBrush(QColorConstants::Svg::red));
+    QGraphicsEllipseItem * fenway = scene->addEllipse(680, 130, 7, 7, QPen(QColorConstants::Svg::red), QBrush(QColorConstants::Svg::red));
     fenway->setToolTip(
         "Fenway Park\n"
         "Boston Red Sox\n"
@@ -520,7 +551,7 @@ void MainWindow::setupMap()
 
     //national leagues
 
-    QGraphicsEllipseItem* marlins = scene->addEllipse(604, 435, 7, 7, QPen(QColorConstants::Svg::blue), QBrush(QColorConstants::Svg::blue));
+    QGraphicsEllipseItem * marlins = scene->addEllipse(604, 435, 7, 7, QPen(QColorConstants::Svg::blue), QBrush(QColorConstants::Svg::blue));
     marlins->setToolTip(
         "Marlins Park\n"
         "Miami Marlins\n"
@@ -532,7 +563,7 @@ void MainWindow::setupMap()
 
         );
 
-    QGraphicsEllipseItem* turner = scene->addEllipse(528, 305, 7, 7, QPen(QColorConstants::Svg::blue), QBrush(QColorConstants::Svg::blue));
+    QGraphicsEllipseItem * turner = scene->addEllipse(528, 305, 7, 7, QPen(QColorConstants::Svg::blue), QBrush(QColorConstants::Svg::blue));
     turner->setToolTip(
         "Turner Field\n"
         "Atlanta Braves\n"
@@ -542,9 +573,10 @@ void MainWindow::setupMap()
         "Opened - March 29, 1997\n"
         "Capacity - 49,586"
 
+
         );
 
-    QGraphicsEllipseItem* nationals = scene->addEllipse(615, 200, 7, 7, QPen(QColorConstants::Svg::blue), QBrush(QColorConstants::Svg::blue));
+    QGraphicsEllipseItem * nationals = scene->addEllipse(615, 200, 7, 7, QPen(QColorConstants::Svg::blue), QBrush(QColorConstants::Svg::blue));
     nationals->setToolTip(
         "Nationals Park\n"
         "Washington Nationals\n"
@@ -555,7 +587,7 @@ void MainWindow::setupMap()
         "Capacity - 41,418"
         );
 
-    QGraphicsEllipseItem* citizens = scene->addEllipse(635, 178, 7, 7, QPen(QColorConstants::Svg::blue), QBrush(QColorConstants::Svg::blue));
+    QGraphicsEllipseItem * citizens = scene->addEllipse(635, 178, 7, 7, QPen(QColorConstants::Svg::blue), QBrush(QColorConstants::Svg::blue));
     citizens->setToolTip(
         "Citizens Bank Park\n"
         "Philadelphia Phillies\n"
@@ -567,7 +599,7 @@ void MainWindow::setupMap()
 
         );
 
-    QGraphicsEllipseItem* citi = scene->addEllipse(655, 165, 7, 7, QPen(QColorConstants::Svg::blue), QBrush(QColorConstants::Svg::blue));
+    QGraphicsEllipseItem * citi = scene->addEllipse(655, 165, 7, 7, QPen(QColorConstants::Svg::blue), QBrush(QColorConstants::Svg::blue));
     citi->setToolTip(
         "Citi Field\n"
         "New York Mets\n"
@@ -661,7 +693,9 @@ void MainWindow::setupMap()
     drawConnection(fenwayP, marlinsP,"1255");
 
 
-
+    // connect(ellipse, &QGraphicsEllipseItem ::clicked, []() {
+    //     qDebug() << "Ellipse was clicked!";
+    // });
 
 
 }
