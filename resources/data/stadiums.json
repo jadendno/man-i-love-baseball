@@ -1,0 +1,502 @@
+[
+  {
+    "id": 1,
+    "name": "Angels Stadium of Anaheim",
+    "location": [33.80028, -117.88278],
+    "team": "Los Angeles Angels of Anaheim",
+    "address": "2000 E Gene Autry Way, Anaheim, CA 92806",
+    "phone": "(714) 940-2000",
+    "opened": "1966-04-19",
+    "capacity": "45483",
+    "adjacent": [
+      { "id": 22, "distance": 0 },
+      { "id": 27, "distance": 110 },
+      { "id": 16, "distance": 340 },
+      { "id": 7, "distance": 340 },
+      { "id": 12, "distance": 1500 }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Comerica Park",
+    "location": [42.33917, -83.04861],
+    "team": "Detroit Tigers",
+    "address": "2100 Woodward Ave, Detroit, MI 48201",
+    "phone": "(313) 962-4000",
+    "opened": "2000-04-11",
+    "capacity": "41681",
+    "adjacent": [
+      { "id": 14, "distance": 80 },
+      { "id": 30, "distance": 80 },
+      { "id": 10, "distance": 210 }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Fenway Park",
+    "location": [42.34625, -71.09775],
+    "team": "Boston Red Sox",
+    "address": "4 Yawkey Way, Boston, MA 02215",
+    "phone": "(877) 733-7699",
+    "opened": "1912-04-20",
+    "capacity": "37499",
+    "adjacent": [
+      { "id": 10, "distance": 430 },
+      { "id": 15, "distance": 195 },
+      { "id": 19, "distance": 195 },
+      { "id": 24, "distance": 1255 }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Globe Life Park in Arlington",
+    "location": [32.75139, -97.08278],
+    "team": "Texas Rangers",
+    "address": "1000 Ballpark Way, Arlington, TX 76011",
+    "phone": "(817) 273-5222",
+    "opened": "1994-04-01",
+    "capacity": "48114",
+    "adjacent": [
+      { "id": 6, "distance": 230 },
+      { "id": 5, "distance": 460 },
+      { "id": 21, "distance": 650 },
+      { "id": 29, "distance": 740 },
+      { "id": 18, "distance": 870 }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Kauffman Stadium",
+    "location": [39.05139, -94.48056],
+    "team": "Kansas City Royals",
+    "address": "1 Royal Way, Kansas City, MO 64129",
+    "phone": "(816) 921-8000",
+    "opened": "1973-04-10",
+    "capacity": "37903",
+    "adjacent": [
+      { "id": 17, "distance": 235 },
+      { "id": 30, "distance": 415 },
+      { "id": 14, "distance": 415 },
+      { "id": 4, "distance": 460 },
+      { "id": 21, "distance": 560 }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Minute Maid Park",
+    "location": [29.75694, -95.35556],
+    "team": "Houston Astros",
+    "address": "501 Crawford St, Houston, TX 77002",
+    "phone": "(713) 259-8000",
+    "opened": "2000-03-30",
+    "capacity": "42060",
+    "adjacent": [
+      { "id": 4, "distance": 230 },
+      { "id": 17, "distance": 680 },
+      { "id": 13, "distance": 790 },
+      { "id": 24, "distance": 965 },
+      { "id": 18, "distance": 1115 }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "O.co Coliseum",
+    "location": [37.7510, -122.2003],
+    "team": "Oakland Athletics",
+    "address": "7000 Coliseum Way, Oakland, CA 94621",
+    "phone": "(510) 569-2121",
+    "opened": "1966-09-18",
+    "capacity": "37090",
+    "adjacent": [
+      { "id": 16, "distance": 0 },
+      { "id": 22, "distance": 340 },
+      { "id": 1, "distance": 340 },
+      { "id": 18, "distance": 650 },
+      { "id": 11, "distance": 680 }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Oriole Park at Camden Yards",
+    "location": [39.28389, -76.62167],
+    "team": "Baltimore Orioles",
+    "address": "333 West Camden Street, Baltimore, MD 21201",
+    "phone": "(410) 685-9800",
+    "opened": "1992-04-06",
+    "capacity": "48187",
+    "adjacent": [
+      { "id": 26, "distance": 0 },
+      { "id": 20, "distance": 90 },
+      { "id": 28, "distance": 195 },
+      { "id": 29, "distance": 560 },
+      { "id": 24, "distance": 930 }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Progressive Field",
+    "location": [41.49626, -81.68604],
+    "team": "Cleveland Indians",
+    "address": "2401 Ontario Street, Cleveland, OH 44115",
+    "phone": "(216) 420-4487",
+    "opened": "1994-04-02",
+    "capacity": "42404",
+    "adjacent": [
+      { "id": 2, "distance": 90 },
+      { "id": 28, "distance": 115 },
+      { "id": 23, "distance": 225 }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Rogers Centre",
+    "location": [43.6414, -79.3894],
+    "team": "Toronto Blue Jays",
+    "address": "1 Blue Jays Way, Toronto, Ontario, Canada M5V1J3",
+    "phone": "+1 416-341-1000",
+    "opened": "1989-06-03",
+    "capacity": "49282",
+    "adjacent": [
+      { "id": 2, "distance": 210 },
+      { "id": 28, "distance": 225 },
+      { "id": 3, "distance": 430 },
+      { "id": 25, "distance": 430 },
+      { "id": 11, "distance": 2070 }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "SafeCo Field",
+    "location": [47.59148, -122.33286],
+    "team": "Seattle Mariners",
+    "address": "1516 First Avenue South, Seattle, WA 98134",
+    "phone": "(206) 346-4000",
+    "opened": "1999-07-15",
+    "capacity": "47476",
+    "adjacent": [
+      { "id": 7, "distance": 680 },
+      { "id": 16, "distance": 780},
+      { "id": 12, "distance": 1390 },
+      { "id": 10, "distance": 2070 }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Target Field",
+    "location": [44.98208, -93.27844],
+    "team": "Minnesota Twins",
+    "address": "353 N 5th St, Minneapolis, MN 55403",
+    "phone": "(800) 338-9467",
+    "opened": "2010-04-12",
+    "capacity": "39021",
+    "adjacent": [
+      { "id": 25, "distance": 300 },
+      { "id": 17, "distance": 465 },
+      { "id": 11, "distance": 1390 },
+      { "id": 1, "distance": 1500 },
+      { "id": 22, "distance": 1500 }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Tropicana Field",
+    "location": [27.76828, -82.65396],
+    "team": "Tampa Bay Rays",
+    "address": "1 Tropicana Dr, St. Petersburg, FL 33705",
+    "phone": "(727) 825-3137",
+    "opened": "1990-03-03",
+    "capacity": "31042",
+    "adjacent": [
+      { "id": 24, "distance": 210 },
+      { "id": 29, "distance": 600 },
+      { "id": 6, "distance": 790 }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "US Cellular Field",
+    "location": [41.83002, -87.6346],
+    "team": "Chicago White Sox",
+    "address": "333 West 35th Street, Chicago, IL 60616",
+    "phone": "(312) 674-1000",
+    "opened": "1991-04-18",
+    "capacity": "40615",
+    "adjacent": [
+      { "id": 30, "distance": 0 },
+      { "id": 25, "distance": 80 },
+      { "id": 2, "distance": 240 },
+      { "id": 23, "distance": 250 },
+      { "id": 5, "distance": 415 }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Yankee Stadium",
+    "location": [40.8296, -73.9262],
+    "team": "New York Yankees",
+    "address": "1 E 161st St, South Bronx, NY 10451",
+    "phone": "(718) 293-4300",
+    "opened": "2009-04-16",
+    "capacity": "50291",
+    "adjacent": [
+      { "id": 19, "distance": 0 },
+      { "id": 20, "distance": 80 },
+      { "id": 3, "distance": 195 },
+      { "id": 28, "distance": 315 }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "AT&T Park",
+    "location": [37.7786, -122.3893],
+    "team": "San Francisco Giants",
+    "address": "24 Willie Mays Plaza, San Francisco, CA 94107",
+    "phone": "(415) 972-2000",
+    "opened": "2000-04-11",
+    "capacity": "41915",
+    "adjacent": [
+      { "id": 7, "distance": 0 },
+      { "id": 22, "distance": 340 },
+      { "id": 1, "distance": 340 },
+      { "id": 18, "distance": 650 },
+      { "id": 11, "distance": 680 }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Busch Stadium",
+    "location": [38.6226, -90.1928],
+    "team": "St. Louis Cardinals",
+    "address": "700 Clark Street, St. Louis, MO 63102",
+    "phone": "(314) 345-9600",
+    "opened": "2006-04-10",
+    "capacity": "46861",
+    "adjacent": [
+      { "id": 5, "distance": 235 },
+      { "id": 23, "distance": 310 },
+      { "id": 12, "distance": 465 },
+      { "id": 6, "distance": 680 }
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Chase Field",
+    "location": [33.4456, -112.0674],
+    "team": "Arizona Diamondbacks",
+    "address": "401 East Jefferson Street, Phoenix, AZ 85004",
+    "phone": "(602) 462-6500",
+    "opened": "1998-03-31",
+    "capacity": "48633",
+    "adjacent": [
+      { "id": 27, "distance": 300 },
+      { "id": 21, "distance": 580 },
+      { "id": 16, "distance": 650 },
+      { "id": 7, "distance": 650 },
+      { "id": 4, "distance": 870 },
+      { "id": 6, "distance": 1115 }
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Citi Field",
+    "location": [40.7573, -73.8462],
+    "team": "New York Mets",
+    "address": "126th St. & Roosevelt Ave., Queens, NY 11368",
+    "phone": "(718) 507-6387",
+    "opened": "2009-04-13",
+    "capacity": "41922",
+    "adjacent": [
+      { "id": 15, "distance": 0 },
+      { "id": 20, "distance": 80 },
+      { "id": 3, "distance": 195 },
+      { "id": 28, "distance": 315 }
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Citizens Bank Park",
+    "location": [39.9062, -75.1675],
+    "team": "Philadelphia Phillies",
+    "address": "1 Citizens Bank Way, Philadelphia, PA 19148",
+    "phone": "(215) 463-1000",
+    "opened": "2004-04-03",
+    "capacity": "43651",
+    "adjacent": [
+      { "id": 15, "distance": 80 },
+      { "id": 19, "distance": 80 },
+      { "id": 8, "distance": 90 },
+      { "id": 26, "distance": 90 }
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Coors Field",
+    "location": [39.7562, -104.9949],
+    "team": "Colorado Rockies",
+    "address": "2001 Blake St, Denver, CO 80205",
+    "phone": "(303) 292-0200",
+    "opened": "1995-04-26",
+    "capacity": "50480",
+    "adjacent": [
+      { "id": 5, "distance": 560 },
+      { "id": 18, "distance": 580 },
+      { "id": 4, "distance": 650 },
+      { "id": 27, "distance": 830 }
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Dodger Stadium",
+    "location": [34.0736, -118.2400],
+    "team": "Los Angeles Dodgers",
+    "address": "1000 Elysian Park Avenue, Los Angeles, CA 90090",
+    "phone": "(323) 224-1507",
+    "opened": "1962-04-10",
+    "capacity": "56000",
+    "adjacent": [
+      { "id": 1, "distance": 0 },
+      { "id": 27, "distance": 110 },
+      { "id": 16, "distance": 340 },
+      { "id": 7, "distance": 340 },
+      { "id": 12, "distance": 1500 }
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Great America Ball Park",
+    "location": [39.0975, -84.5071],
+    "team": "Cincinnati Reds",
+    "address": "100 Joe Nuxhall Way, Cincinnati, OH 45202",
+    "phone": "(513) 381-7337",
+    "opened": "2003-03-31",
+    "capacity": "42319",
+    "adjacent": [
+      { "id": 9, "distance": 225 },
+      { "id": 14, "distance": 250 },
+      { "id": 30, "distance": 250 },
+      { "id": 28, "distance": 260 },
+      { "id": 17, "distance": 310 },
+      { "id": 29, "distance": 375 },
+      { "id": 13, "distance": 790 }
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Marlins Park",
+    "location": [25.7781, -80.2197],
+    "team": "Miami Marlins",
+    "address": "501 Marlins Way, Miami, FL 33125",
+    "phone": "(305)480-1300",
+    "opened": "2012-04-04",
+    "capacity": "37442",
+    "adjacent": [
+      { "id": 13, "distance": 210 },
+      { "id": 29, "distance": 600 },
+      { "id": 8, "distance": 930 },
+      { "id": 26, "distance": 930 },
+      { "id": 6, "distance": 965 },
+      { "id": 3, "distance": 1255 }
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Miller Park",
+    "location": [43.0281, -87.9711],
+    "team": "Milwaukee Brewers",
+    "address": "1 Brewers Way, Milwaukee, WI 53214",
+    "phone": "(414) 902-4400",
+    "opened": "2001-04-06",
+    "capacity": "41900",
+    "adjacent": [
+      { "id": 14, "distance": 80 },
+      { "id": 30, "distance": 80 },
+      { "id": 12, "distance": 300 },
+      { "id": 10, "distance": 430 }
+    ]
+  },
+  {
+    "id": 26,
+    "name": "Nationals Park",
+    "location": [38.8729, -77.0075],
+    "team": "Washington Nationals",
+    "address": "1500 S Capitol St SE, Washington, DC 20003",
+    "phone": "(202) 675-6287",
+    "opened": "2008-03-30",
+    "capacity": "41418",
+    "adjacent": [
+      { "id": 8, "distance": 0 },
+      { "id": 20, "distance": 90 },
+      { "id": 28, "distance": 195 },
+      { "id": 29, "distance": 560 },
+      { "id": 24, "distance": 930 }
+    ]
+  },
+  {
+    "id": 27,
+    "name": "Petco Park",
+    "location": [32.7076, -117.1566],
+    "team": "San Diego Padres",
+    "address": "19 Tony Gwynn Drive, San Diego, CA 92101",
+    "phone": "(619) 795-5000",
+    "opened": "2004-04-08",
+    "capacity": "42524",
+    "adjacent": [
+      { "id": 1, "distance": 110 },
+      { "id": 22, "distance": 110 },
+      { "id": 18, "distance": 300 },
+      { "id": 21, "distance": 830 }
+    ]
+  },
+  {
+    "id": 28,
+    "name": "PNC Park",
+    "location": [40.4469, -80.0057],
+    "team": "Pittsburgh Pirates",
+    "address": "115 Federal St, Pittsburgh, PA 15212",
+    "phone": "(412) 321-2827",
+    "opened": "2001-03-31",
+    "capacity": "38362",
+    "adjacent": [
+      { "id": 9, "distance": 115 },
+      { "id": 8, "distance": 195 },
+      { "id": 26, "distance": 195 },
+      { "id": 23, "distance": 260 },
+      { "id": 19, "distance": 315 },
+      { "id": 15, "distance": 315 }
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Turner Field",
+    "location": [33.7353, -84.3897],
+    "team": "Atlanta Braves",
+    "address": "755 Hank Aaron Drive, Atlanta, GA 30315",
+    "phone": "(404) 522-7630",
+    "opened": "1997-03-29",
+    "capacity": "49586",
+    "adjacent": [
+      { "id": 23, "distance": 375 },
+      { "id": 8, "distance": 560 },
+      { "id": 26, "distance": 560 },
+      { "id": 13, "distance": 600 },
+      { "id": 4, "distance": 740 }
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Wrigley Field",
+    "location": [41.9484, -87.6553],
+    "team": "Chicago Cubs",
+    "address": "1060 West Addison Street, Chicago, IL 60613",
+    "phone": "(773) 404-2827",
+    "opened": "1914-04-23",
+    "capacity": "42374",
+    "adjacent": [
+      { "id": 14, "distance": 0 },
+      { "id": 25, "distance": 80 },
+      { "id": 2, "distance": 240 },
+      { "id": 23, "distance": 250 },
+      { "id": 5, "distance": 415 }
+    ]
+  }
+]
