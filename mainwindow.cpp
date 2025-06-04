@@ -58,7 +58,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->usMap->setScene(scene);
     setupMap();
 
-    connect(ui->passinput, &QLineEdit::returnPressed, this, &MainWindow::handleLogin);
+    editEllipse = nullptr;
+
+    connect(ui->passinput, &QLineEdit::returnPressed, this, &MainWindow::handleLogin);    
     connect(ui->btnLogin, &QPushButton::clicked, this, &MainWindow::handleLogin);
     connect(ui->usersMenuBtn, &QPushButton::clicked, this, &MainWindow::goToUsersMenu);
     connect(ui->editBtn, &QPushButton::clicked, this, &MainWindow::goToEditMenu);
@@ -67,6 +69,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->logoutBtn3, &QPushButton::clicked, this, &MainWindow::logoutToLogin);
     connect(ui->goBackBtn, &QPushButton::clicked, this, &MainWindow::goToAdminsMenu);
 
+    connect(ui->StadiumBar, &QLineEdit::returnPressed, this, &MainWindow::searchStadium);
+    connect(ui->InfoBtn, &QPushButton::clicked, this, &MainWindow::editStadiumInfo);
+
 
 }
 
@@ -74,6 +79,50 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
+void MainWindow::editStadiumInfo() {
+    // Get the text from the QTextEdit
+    QString infoText = ui->StadiumInfoBar->toPlainText();
+
+    // Clear the input field
+    ui->StadiumInfoBar->clear();
+
+    // Set tooltip if an ellipse is currently selected
+    if (editEllipse) {
+        editEllipse->setToolTip(infoText);
+    } else {
+        searchStadium();
+        if (editEllipse){
+            editEllipse->setToolTip(infoText);
+            return;
+        }
+        qDebug() << "No ellipse selected to edit tooltip.";
+    }
+}
+
+
+
+
+void MainWindow::searchStadium() {
+    QString tooltipText = ui->StadiumBar->text();
+
+    for (QGraphicsItem* item : scene->items()) {
+        QGraphicsEllipseItem* ellipse = qgraphicsitem_cast<QGraphicsEllipseItem*>(item);
+        if (ellipse) {
+            QString tooltip = ellipse->toolTip();
+            QString firstTooltipLine = tooltip.section('\n', 0, 0);  // Gets first line
+            if (firstTooltipLine == tooltipText) {
+                editEllipse = ellipse;
+                return;
+            }
+        }
+    }
+    editEllipse = nullptr;
+    ui->StadiumBar->setText("Not Found");
+}
+
+
 
 
 /**********************************************************************
@@ -608,7 +657,6 @@ void MainWindow::setupMap()
         "(718) 507-6387\n"
         "Opened - April 13, 2009\n"
         "Capacity - 41,922"
-
         );
 
     //coordinates: testing att && safeco
@@ -693,9 +741,7 @@ void MainWindow::setupMap()
     drawConnection(fenwayP, marlinsP,"1255");
 
 
-    // connect(ellipse, &QGraphicsEllipseItem ::clicked, []() {
-    //     qDebug() << "Ellipse was clicked!";
-    // });
+
 
 
 }

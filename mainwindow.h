@@ -25,12 +25,15 @@ public:
 private:
     Ui::MainWindow *ui;
     QGraphicsScene* scene;
+    QGraphicsEllipseItem* editEllipse;
 
     void handleLogin();
     void goToUsersMenu();
     void goToEditMenu();
     void logoutToLogin();
     void goToAdminsMenu();
+    void searchStadium();
+    void editStadiumInfo();
 
     void clearLogin();
 
