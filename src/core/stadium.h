@@ -20,6 +20,7 @@ struct Stadium {
         double distance;
     };
     std::vector<Adjacent> adjacent;
+    bool turf;
 };
 
 struct Edge {

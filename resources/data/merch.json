@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Baseball cap",
+    "price": 25.99
+  },
+  {
+    "id": 2,
+    "name": "Baseball bat",
+    "price": 35.35
+  },
+  {
+    "id": 3,
+    "name": "Team pennant",
+    "price": 12.99
+  },
+  {
+    "id": 4,
+    "name": "Autographed baseball",
+    "price": 19.99
+  }
+]

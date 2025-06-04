@@ -195,9 +195,9 @@ QFrame#loginframe {
      <widget class="QPushButton" name="pqBtn">
       <property name="geometry">
        <rect>
-        <x>760</x>
-        <y>560</y>
-        <width>100</width>
+        <x>740</x>
+        <y>480</y>
+        <width>121</width>
         <height>31</height>
        </rect>
       </property>
@@ -209,9 +209,9 @@ QFrame#loginframe {
       <property name="geometry">
        <rect>
         <x>740</x>
-        <y>70</y>
+        <y>320</y>
         <width>131</width>
-        <height>471</height>
+        <height>151</height>
        </rect>
       </property>
      </widget>
@@ -219,7 +219,7 @@ QFrame#loginframe {
       <property name="geometry">
        <rect>
         <x>750</x>
-        <y>40</y>
+        <y>290</y>
         <width>41</width>
         <height>21</height>
        </rect>
@@ -231,14 +231,112 @@ QFrame#loginframe {
      <widget class="QPushButton" name="clrBtn">
       <property name="geometry">
        <rect>
-        <x>760</x>
-        <y>590</y>
-        <width>100</width>
+        <x>740</x>
+        <y>570</y>
+        <width>121</width>
         <height>31</height>
        </rect>
       </property>
       <property name="text">
        <string>Clear selected</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="viewStadiums">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>40</y>
+        <width>101</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>View Stadiums</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="natBtn">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>510</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select National</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="amBtn">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>540</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select American</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="viewData">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>600</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>View data</string>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="merchList">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>70</y>
+        <width>131</width>
+        <height>151</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="welcomeUsers_3">
+      <property name="geometry">
+       <rect>
+        <x>750</x>
+        <y>40</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Merch</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="addMerch">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>250</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Add merch</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="textBrowser_2">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>230</y>
+        <width>131</width>
+        <height>21</height>
+       </rect>
       </property>
      </widget>
     </widget>

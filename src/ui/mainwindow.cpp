@@ -4,9 +4,11 @@
 #include "ui/map.h"
 #include "ui/clickableellipse.h"
 #include "core/stadium.h"
+#include "utils/stadiumhelper.h"
 
 #include <QGraphicsItem>
 #include <QListWidgetItem>
+#include <QInputDialog>
 
 /**********************************************************************
 MainWindow::MainWindow(QWidget *parent)
@@ -38,6 +40,13 @@ MainWindow::MainWindow(QWidget *parent)
     ui->usMap->setScene(scene);
     setupMap();
 
+    m_merchList = loadMerchFromJson(":/data/merch.json");
+    if (m_merchList.empty()) {
+        QMessageBox::warning(this,
+                             tr("Merch Load Error"),
+                             tr("No merchandise was loaded from merch.json."));
+    }
+
     connect(ui->passinput, &QLineEdit::returnPressed, this, &MainWindow::handleLogin);
     connect(ui->btnLogin, &QPushButton::clicked, this, &MainWindow::handleLogin);
     connect(ui->usersMenuBtn, &QPushButton::clicked, this, &MainWindow::goToUsersMenu);
@@ -52,6 +61,23 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->clrBtn, &QPushButton::clicked,
             this, &MainWindow::on_clrBtn_clicked);
+
+    connect(ui->viewStadiums, &QPushButton::clicked,
+            this, &MainWindow::showViewStadiums);
+
+    connect(ui->viewData, &QPushButton::clicked,
+            this, &MainWindow::showDataDialog);
+
+    connect(ui->natBtn, &QPushButton::clicked,
+            this, &MainWindow::fillNL);
+
+    connect(ui->amBtn, &QPushButton::clicked,
+            this, &MainWindow::fillAL);
+
+    connect(ui->addMerch,
+            &QPushButton::clicked,
+            this,
+            &MainWindow::addMerch);
 }
 
 MainWindow::~MainWindow()
@@ -181,104 +207,142 @@ Successfully generates map on user's page
 void MainWindow::setupMap()
 {
     QPixmap map(":/images/map.png");
-
-    if(map.isNull()){
+    if (map.isNull()) {
         QMessageBox::warning(this, "Error", "Map image not found");
         return;
     }
 
-
-    //add map to the scene
-    QPixmap scaledMap = map.scaled(ui->usMap->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    QPixmap scaledMap = map.scaled(
+        ui->usMap->size(),
+        Qt::KeepAspectRatio,
+        Qt::SmoothTransformation
+        );
     QGraphicsPixmapItem* mapItem = scene->addPixmap(scaledMap);
 
-    std::vector<Stadium> stadiums = load_stadiums_from_resource(":/data/stadiums.json");
+    // Clear any previous points (just in case):
+    m_idToPoint.clear();
 
-    auto graph = buildGraph(stadiums);
-
-    // 3) Build a direct lookup: id → (lat, lon), or id → QPointF
-    //    So we don’t recalculate lat/lon every time we draw.
-    std::unordered_map<int, QPointF> idToPoint;
-    idToPoint.reserve(stadiums.size());
-    for (const Stadium& s : stadiums) {
+    // 1) Draw each stadium ellipse, store its scene point:
+    for (const Stadium& s : m_stadiums) {
         double lat = s.location.first;
         double lon = s.location.second;
         QPointF pt = MapPlotter::latLonToScene(mapItem, lat, lon);
-        idToPoint[s.id] = pt;
+        m_idToPoint[s.id] = pt;  // <--- store it here
 
-
-        ClickableEllipse *ellipse =
+        ClickableEllipse* ellipse =
             new ClickableEllipse(pt.x() - 4, pt.y() - 4, 7, 7);
-
         ellipse->setBrush(Qt::blue);
         ellipse->setPen(QPen(Qt::black, 1));
-
-        // Store the stadium’s name as user data (index 0)
-        QString qname = QString::fromStdString(s.name);
-        ellipse->setData(0, QVariant(qname));
         ellipse->setFlag(QGraphicsItem::ItemIsSelectable, true);
 
+        QString qname = QString::fromStdString(s.name);
+        ellipse->setData(0, QVariant(qname));
+
+        std::string turf = "turf";
+        if (s.turf)
+                turf = "grass";
+        QString tooltip =
+            QString::fromStdString(
+                s.name + "\n" +
+                s.team + "\n" +
+                s.address + "\n" +
+                s.phone + "\n" +
+                "Opened: " + s.opened + "\n" +
+                "Capacity: " + s.capacity +
+                "Turf type: " + turf
+                );
+        ellipse->setToolTip(tooltip);
 
         scene->addItem(ellipse);
 
-
-        // Capture “info.name” inside a lambda, or read ellipse->data(0) in the slot:
         connect(ellipse, &ClickableEllipse::clicked, this, [this, ellipse]() {
             QString stadiumName = ellipse->data(0).toString();
             onStadiumEllipseClicked(stadiumName);
         });
-
-        /*QGraphicsEllipseItem* item = scene->addEllipse(
-            pt.x() - 4, pt.y() - 4, 7, 7,
-            QPen(QColorConstants::Svg::orange),
-            QBrush(QColorConstants::Svg::orange)
-            );
-
-        item->setFlag(QGraphicsItem::ItemIsSelectable, true);
-        item->setData(0, s.id);   // store stadium ID under key 0*/
-
-        // Format tooltip text using QString for easier number/string concat
-        QString tooltip = QString::fromStdString(
-            s.name + "\n" +
-            s.team + "\n" +
-            s.address + "\n" +
-            s.phone + "\n" +
-            "Opened: " + s.opened + "\n" +
-            "Capacity: " + s.capacity
-            );
-        ellipse->setToolTip(tooltip);
     }
 
-    // 4) Draw each undirected edge exactly once:
-    QPen edgePen(QColorConstants::Svg::black);
+    // 2) Draw every undirected edge (thin, black) exactly once:
+    QPen edgePen(Qt::black);
     edgePen.setWidthF(1.0);
 
-    for (const Stadium& u : stadiums) {
-        int u_id = u.id;
+    for (const Stadium& u : m_stadiums) {
+        int u_id  = u.id;
         int u_idx = u_id - 1;
-
-        for (const Edge& e : graph[u_idx]) {
-            if (e.weight == 0)
-                continue;
+        for (const Edge& e : m_graph[u_idx]) {
+            if (e.weight == 0.0) continue;
 
             int v_id = e.to;
-            // Only draw if u_id < v_id (prevents drawing each line twice).
+            // draw each undirected edge once (u_id < v_id):
             if (u_id < v_id) {
-                // lookup points:
-                QPointF pt_u = idToPoint[u_id];
-                QPointF pt_v = idToPoint[v_id];
-
-                // Draw a simple line (connection) on the scene:
-                scene->addLine(
-                    pt_u.x(), pt_u.y(),
-                    pt_v.x(), pt_v.y(),
-                    edgePen
-                    );
+                QPointF pu = m_idToPoint[u_id];
+                QPointF pv = m_idToPoint[v_id];
+                scene->addLine(pu.x(), pu.y(), pv.x(), pv.y(), edgePen);
             }
         }
     }
 }
 
+std::vector<int> MainWindow::getFullVisitPath(const std::vector<int>& mustVisitIds)
+{
+    std::vector<int> toVisit = mustVisitIds;    // copy so we can erase
+    std::vector<int> fullPath;                  // final output
+
+    int N = static_cast<int>(m_stadiums.size());
+    int currId  = m_startStadiumId;
+    int currIdx = currId - 1;
+
+    // always start by “standing at” the home stadium:
+    fullPath.push_back(currId);
+
+    while (!toVisit.empty()) {
+        // run Dijkstra from currIdx
+        auto [dist, prev] = dijkstra(currIdx);
+
+        // pick the nearest ‘mustVisit’ among toVisit
+        double bestDist = std::numeric_limits<double>::infinity();
+        int bestNextId  = -1;
+        int bestNextIdx = -1;
+
+        for (int id : toVisit) {
+            int idx = id - 1;
+            if (dist[idx] < bestDist) {
+                bestDist   = dist[idx];
+                bestNextId = id;
+                bestNextIdx= idx;
+            }
+        }
+
+        if (bestNextId < 0) {
+            // none reachable → bail out
+            break;
+        }
+
+        // Reconstruct the entire chain of 0-based indices from currIdx → bestNextIdx
+        std::vector<int> segment;
+        for (int v = bestNextIdx; v != currIdx; v = prev[v]) {
+            if (v < 0 || v >= N) break;
+            segment.push_back(v);
+        }
+        segment.push_back(currIdx);
+        std::reverse(segment.begin(), segment.end());
+        // Now: segment[0]==currIdx, segment.back()==bestNextIdx
+
+        // Append all but segment[0], converting each 0-based idx → 1-based ID:
+        for (int i = 1; i < static_cast<int>(segment.size()); ++i) {
+            fullPath.push_back(segment[i] + 1);
+        }
+
+        // move on
+        currId   = bestNextId;
+        currIdx  = bestNextIdx;
+        toVisit.erase(
+            std::remove(toVisit.begin(), toVisit.end(), bestNextId),
+            toVisit.end()
+            );
+    }
+
+    return fullPath;
+}
 
 void MainWindow::onStadiumEllipseClicked(const QString &stadiumName)
 {
@@ -307,6 +371,7 @@ void MainWindow::onStadiumEllipseClicked(const QString &stadiumName)
     // Otherwise, this is a fresh click → enqueue as normal:
 
     // 1) Add to our internal queue
+    m_lastSelectedStadiumName = stadiumName;
     m_stadiumQueue.enqueue(stadiumName);
 
     // 2) If this is the very first stadium in the queue, set it as the “start” ID
@@ -341,6 +406,25 @@ void MainWindow::buildNameLookup()
         m_nameToId[qname] = s.id;   // note: IDs are 1‐based
     }
 }
+
+// In mainwindow.cpp, implement clearHighlights():
+void MainWindow::clearHighlights()
+{
+    // Remove and delete all red LineItems
+    for (auto *lineItem : m_highlightedEdges) {
+        scene->removeItem(lineItem);
+        delete lineItem;
+    }
+    m_highlightedEdges.clear();
+
+    // Remove and delete all red label items
+    for (auto *labelItem : m_edgeLabels) {
+        scene->removeItem(labelItem);
+        delete labelItem;
+    }
+    m_edgeLabels.clear();
+}
+
 
 
 // A helper struct for Dijkstra’s priority‐queue
@@ -526,49 +610,82 @@ QString MainWindow::computeVisitOrderAndDistance(const std::vector<int> &mustVis
 
 void MainWindow::on_pqBtn_clicked()
 {
-    // 1) If nothing’s queued, bail out:
-    if (ui->listWidget->count() == 0) {
-        ui->textBrowser->append("No stadiums in the queue.\n");
-        return;
-    }
+    clearHighlights();
 
-    // 2) Build a vector<int> of stadium IDs from the queue
+    // (B) Gather the mustVisit IDs from your QListWidget:
     std::vector<int> mustVisitIds;
-    mustVisitIds.reserve(ui->listWidget->count() - 1);
-
-    for (int row = 1; row < ui->listWidget->count(); ++row) {
-        QListWidgetItem *item = ui->listWidget->item(row);
-        QString qname = item->text();
-        // If you prefixed “1. “ in your display, strip up to the first space:
-        //    e.g. “3. Yankee Stadium” → “Yankee Stadium”.
-        //    Otherwise, if your displayText was exactly the stadiumName, skip this.
-        if (qname.contains(". ")) {
-            // split on “. ” and take the second half
-            qname = qname.section(". ", 1, 1);
+    mustVisitIds.reserve(ui->listWidget->count());
+    for (int row = 0; row < ui->listWidget->count(); ++row) {
+        QString qtext = ui->listWidget->item(row)->text();
+        // strip off “N. StadiumName” → “StadiumName”
+        if (qtext.contains(". ")) {
+            qtext = qtext.section(". ", 1, 1);
         }
-
-        // Lookup ID
-        auto it = m_nameToId.find(qname);
-        if (it == m_nameToId.end()) {
-            qWarning() << "Unknown stadium name in queue:" << qname;
-            continue; // skip invalid
+        auto it = m_nameToId.find(qtext);
+        if (it != m_nameToId.end()) {
+            mustVisitIds.push_back(it->second);
         }
-        mustVisitIds.push_back(it->second);
     }
-
-    // If for some reason the queue became empty after skipping unknown names:
     if (mustVisitIds.empty()) {
-        ui->textBrowser->append("No valid stadium IDs found in the queue.\n");
+        ui->textBrowser->setText("No stadiums to visit.\n");
         return;
     }
 
-    // 3) Now call a helper that computes the “best path” visiting them all,
-    //    starting from m_startStadiumId.
-    QString result = computeVisitOrderAndDistance(mustVisitIds);
-    ui->textBrowser->clear();
-    ui->textBrowser->append(result);
-}
+    // (C) Compute the full sequence (including intermediates):
+    std::vector<int> fullPath = getFullVisitPath(mustVisitIds);
+    // fullPath is a list of 1-based IDs: [home, X, Y, … finalMustVisit]
 
+    // (D) Draw red, thick lines for every consecutive pair:
+    QPen redPen(Qt::red);
+    redPen.setWidthF(3.0);
+    redPen.setCapStyle(Qt::RoundCap);
+    redPen.setJoinStyle(Qt::RoundJoin);
+
+    for (size_t i = 0; i + 1 < fullPath.size(); ++i) {
+        int u_id = fullPath[i];
+        int v_id = fullPath[i + 1];
+        QPointF pu = m_idToPoint[u_id];
+        QPointF pv = m_idToPoint[v_id];
+
+        // Draw red line:
+        QGraphicsLineItem* lineItem =
+            scene->addLine(pu.x(), pu.y(), pv.x(), pv.y(), redPen);
+        // Put it “on top” of existing edges:
+        lineItem->setZValue(2.0);
+        m_highlightedEdges.push_back(lineItem);
+
+        // (E) Look up the weight of edge (u_id→v_id):
+        //     We know graph is 0-based in m_graph[u_id-1].to == v_id
+        double weight = 0.0;
+        int u_idx = u_id - 1;
+        for (const Edge& e : m_graph[u_idx]) {
+            if (e.to == v_id) {
+                weight = e.weight;
+                break;
+            }
+        }
+
+        // Place a text label at the midpoint:
+        QPointF mid((pu.x() + pv.x()) / 2.0, (pu.y() + pv.y()) / 2.0);
+        QString wText = QString::number(weight);
+        QGraphicsSimpleTextItem* label =
+            scene->addSimpleText(wText);
+        // center it roughly:
+        QRectF r = label->boundingRect();
+        label->setPos(mid.x() - r.width() / 2, mid.y() - r.height() / 2);
+        label->setZValue(3.0);
+        label->setBrush(Qt::red);
+        m_edgeLabels.push_back(label);
+    }
+
+    // (F) Finally, build the same textual summary you had before:
+    //     (Number of stadiums visited, the must-visit order, total distance…)
+    //     You can still call computeVisitOrderAndDistance(mustVisitIds)
+    //     if you want that exact string, or re-build here.
+
+    QString summary = computeVisitOrderAndDistance(mustVisitIds);
+    ui->textBrowser->setText(summary);
+}
 
 void MainWindow::on_clrBtn_clicked()
 {
@@ -577,8 +694,263 @@ void MainWindow::on_clrBtn_clicked()
         QString s = m_stadiumQueue.dequeue();
         qDebug() << "Dequeued stadium:" << s;
     }
+    clearHighlights();
     ui->listWidget->clear();
 }
 
+void MainWindow::showViewStadiums()
+{
+    // 1) Build a list of choices
+    QStringList options;
+    options << tr("All stadiums (A–Z)")
+            << tr("American League (A–Z)")
+            << tr("National League (A–Z)")
+            << tr("Grass-surface stadiums (A–Z)")
+            << tr("By opening date");
 
+    // 2) Pop up a simple input‐dialog to let the user choose one
+    bool ok = false;
+    QString choice = QInputDialog::getItem(
+        this,
+        tr("View Stadiums"),
+        tr("Select which list to display:"),
+        options,
+        0,           // default index
+        false,       // do not allow typing arbitrary text
+        &ok
+        );
 
+    if (!ok || choice.isEmpty()) {
+        // User canceled or closed the dialog
+        return;
+    }
+
+    // 3) Depending on which option they picked, call the right helper:
+    std::vector<Stadium> filtered;
+    if (choice == options[0]) {                   // "All stadiums (A–Z)"
+        filtered = StadiumHelpers::allSortedByTeam(m_stadiums);
+    }
+    else if (choice == options[1]) {              // "American League (A–Z)"
+        filtered = StadiumHelpers::ALSortedByTeam(m_stadiums);
+    }
+    else if (choice == options[2]) {              // "National League (A–Z)"
+        filtered = StadiumHelpers::NLSortedByTeam(m_stadiums);
+    }
+    else if (choice == options[3]) {              // "Grass-surface stadiums (A–Z)"
+        filtered = StadiumHelpers::grassSortedByTeam(m_stadiums);
+    }
+    else if (choice == options[4]) {              // "By opening date"
+        filtered = StadiumHelpers::sortedByOpenedDate(m_stadiums);
+    }
+
+    // 4) Build a multiline QString to show each stadium on its own line.
+    //    You can include whichever fields you like; here we do “Team – StadiumName (Opened)”
+    QString text;
+    text.reserve(filtered.size() * 50);  // pre‐reserve some room
+    for (const Stadium &s : filtered) {
+        QString line;
+        if (choice == options[4]) {
+            // If “By opening date,” show “YYYY-MM-DD – Team – StadiumName”
+            line = QString("%1 – %2 – %3")
+                       .arg(QString::fromStdString(s.opened))
+                       .arg(QString::fromStdString(s.team))
+                       .arg(QString::fromStdString(s.name));
+        } else {
+            // Otherwise just show “Team – StadiumName”
+            line = QString("%1 – %2")
+                       .arg(QString::fromStdString(s.team))
+                       .arg(QString::fromStdString(s.name));
+        }
+        text += line;
+        text += "\n";
+    }
+
+    // 5) Finally, pop up a message box with the result
+    //    (If the list is very long, you might consider using a QTextEdit in a custom QDialog instead,
+    //     but for moderate‐sized lists, a QMessageBox is fine.)
+    if (filtered.empty()) {
+        QMessageBox::information(
+            this,
+            tr("No Stadiums"),
+            tr("No stadiums matched your criteria.")
+            );
+    }
+    else {
+        QMessageBox::information(
+            this,
+            tr("Stadium List"),
+            text
+            );
+    }
+}
+
+void MainWindow::showDataDialog()
+{
+    // If no stadium was ever clicked
+    if (m_lastSelectedStadiumName.isEmpty()) {
+        QMessageBox::information(
+            this,
+            tr("No Selection"),
+            tr("Please click a stadium on the map first.")
+            );
+        return;
+    }
+
+    // Look up its ID
+    auto it = m_nameToId.find(m_lastSelectedStadiumName);
+    if (it == m_nameToId.end()) {
+        // Should never happen, but guard just in case
+        QMessageBox::warning(
+            this,
+            tr("Error"),
+            tr("Could not find data for stadium: %1")
+                .arg(m_lastSelectedStadiumName)
+            );
+        return;
+    }
+    int stadiumId = it->second;      // 1-based
+    int idx       = stadiumId - 1;   // convert to 0-based index
+
+    // Extract the Stadium struct
+    const Stadium &s = m_stadiums.at(idx);
+
+    // Build the info string using our helper
+    QString info = StadiumHelpers::stadiumInfo(s);
+
+    // Show it in a dialog
+    QMessageBox::information(
+        this,
+        tr("Stadium Details"),
+        info
+        );
+}
+
+// --------------------------------------------------------------------------------------
+// Slot: clear the queue and fill it with all National League stadiums (sorted A–Z)
+// --------------------------------------------------------------------------------------
+void MainWindow::fillNL()
+{
+    // 1) Clear the internal QQueue and the QListWidget UI
+    m_stadiumQueue.clear();
+    ui->listWidget->clear();
+
+    // 2) Get all NL stadiums (already sorted by team name) from the helper
+    std::vector<Stadium> nlList = StadiumHelpers::NLSortedByTeam(m_stadiums);
+
+    // 3) Loop over them, enqueue each name, and add a “N. StadiumName” row
+    int position = 0;
+    for (const Stadium &s : nlList) {
+        QString name = QString::fromStdString(s.name);
+        m_stadiumQueue.enqueue(name);
+
+        ++position; // 1-based index
+        QString displayText = QString("%1. %2").arg(position).arg(name);
+        ui->listWidget->addItem(new QListWidgetItem(displayText));
+    }
+}
+
+// --------------------------------------------------------------------------------------
+// Slot: clear the queue and fill it with all American League stadiums (sorted A–Z)
+// --------------------------------------------------------------------------------------
+void MainWindow::fillAL()
+{
+    // 1) Clear the internal QQueue and the QListWidget UI
+    m_stadiumQueue.clear();
+    ui->listWidget->clear();
+
+    // 2) Get all AL stadiums (already sorted by team name) from the helper
+    std::vector<Stadium> alList = StadiumHelpers::ALSortedByTeam(m_stadiums);
+
+    // 3) Loop over them, enqueue each name, and add a “N. StadiumName” row
+    int position = 0;
+    for (const Stadium &s : alList) {
+        QString name = QString::fromStdString(s.name);
+        m_stadiumQueue.enqueue(name);
+
+        ++position; // 1-based index
+        QString displayText = QString("%1. %2").arg(position).arg(name);
+        ui->listWidget->addItem(new QListWidgetItem(displayText));
+    }
+}
+
+void MainWindow::addMerch()
+{
+    if (m_merchList.empty()) {
+        QMessageBox::information(this,
+                                 tr("No Merchandise"),
+                                 tr("There is no merchandise to buy."));
+        return;
+    }
+
+    // 1) Build a QStringList of all merch names
+    QStringList names;
+    for (const Merch &m : m_merchList) {
+        names << m.name;
+    }
+
+    // 2) Let the user pick one (non-editable dropdown)
+    bool ok = false;
+    QString chosenName = QInputDialog::getItem(
+        this,
+        tr("Select Merchandise"),
+        tr("Choose an item:"),
+        names,
+        0,      // default index
+        false,  // do not allow typing arbitrary text
+        &ok
+        );
+    if (!ok || chosenName.isEmpty()) {
+        // user canceled
+        return;
+    }
+
+    // 3) Find that Merch in m_merchList to get its price
+    const Merch *selectedMerch = nullptr;
+    for (const Merch &m : m_merchList) {
+        if (m.name == chosenName) {
+            selectedMerch = &m;
+            break;
+        }
+    }
+    if (!selectedMerch) {
+        // Should never happen if names matched exactly
+        QMessageBox::warning(
+            this,
+            tr("Lookup Error"),
+            tr("Selected item not found.")
+            );
+        return;
+    }
+
+    // 4) Ask the user for a quantity (1..100)
+    int qty = QInputDialog::getInt(
+        this,
+        tr("Quantity"),
+        tr("Enter quantity for \"%1\":").arg(chosenName),
+        1,    // default value
+        1,    // min value
+        100,  // max value
+        1,    // step
+        &ok
+        );
+    if (!ok) {
+        // user canceled
+        return;
+    }
+
+    // 5) Create a Purchased record and append to m_cart
+    Purchased p;
+    p.name       = chosenName;
+    p.qty        = qty;
+    p.unitPrice  = selectedMerch->price;
+    // totalPrice() is computed on the fly
+    m_cart.push_back(p);
+
+    // 6) Add one line to cartListWidget: “Name | Qty | Unit | Total”
+    QString line = QString("%1 | Qty: %2 | Unit: $%3 | Total: $%4")
+                       .arg(p.name)
+                       .arg(p.qty)
+                       .arg(QString::number(p.unitPrice, 'f', 2))
+                       .arg(QString::number(p.totalPrice(), 'f', 2));
+    ui->merchList->addItem(new QListWidgetItem(line));
+}
