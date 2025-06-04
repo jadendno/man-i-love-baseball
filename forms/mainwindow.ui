@@ -321,15 +321,15 @@ QFrame#loginframe {
        <rect>
         <x>740</x>
         <y>250</y>
-        <width>121</width>
+        <width>61</width>
         <height>31</height>
        </rect>
       </property>
       <property name="text">
-       <string>Add merch</string>
+       <string>Add</string>
       </property>
      </widget>
-     <widget class="QTextBrowser" name="textBrowser_2">
+     <widget class="QTextBrowser" name="priceTotal">
       <property name="geometry">
        <rect>
         <x>740</x>
@@ -337,6 +337,19 @@ QFrame#loginframe {
         <width>131</width>
         <height>21</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="delMerch">
+      <property name="geometry">
+       <rect>
+        <x>810</x>
+        <y>250</y>
+        <width>61</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Delete</string>
       </property>
      </widget>
     </widget>

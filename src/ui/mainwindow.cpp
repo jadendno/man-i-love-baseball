@@ -947,7 +947,7 @@ void MainWindow::addMerch()
     m_cart.push_back(p);
 
     // 6) Add one line to cartListWidget: “Name | Qty | Unit | Total”
-    QString line = QString("%1 | Qty: %2 | Unit: $%3 | Total: $%4")
+    QString line = QString("%1 x %2 | Unit: $%3, Total: $%4")
                        .arg(p.name)
                        .arg(p.qty)
                        .arg(QString::number(p.unitPrice, 'f', 2))
